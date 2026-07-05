@@ -17,6 +17,7 @@ Write the session summary into today's row for this directory + machine in the N
 - Data source: `collection://af890d8c-9a71-4500-b2e8-89e3ac7449eb`
 - `PROJECT_PATH` — working directory, from session context
 - `MACHINE` — hostname, from session context (run `hostname` if not already known)
+- `NOW` — the current local timestamp with UTC offset. ALWAYS get this by running `date -Iseconds` — never guess or infer it from context/training. A guessed timestamp tends to land hours off (e.g. UTC instead of local), which is exactly the kind of bug that's easy to miss because the row still looks plausible.
 
 ## Steps
 
@@ -37,12 +38,12 @@ Write the session summary into today's row for this directory + machine in the N
    - If nothing fits, propose one new tag name and ask the user for a quick confirmation before writing.
 
 5. Write the row:
-   - **Row already exists (from step 1)** — update it via `mcp__claude_ai_Notion__notion-update-page` (`update_properties`, `page_id` = the `url`/id from step 1): merge the new material into `Summary` (append or rewrite, keep it coherent), bump `Title` and `date:Timestamp:start` to now, merge `Tags`.
+   - **Row already exists (from step 1)** — update it via `mcp__claude_ai_Notion__notion-update-page` (`update_properties`, `page_id` = the `url`/id from step 1): merge the new material into `Summary` (append or rewrite, keep it coherent), bump `Title` and `date:Timestamp:start` to `NOW`, merge `Tags`.
    - **No row yet** — create one via `mcp__claude_ai_Notion__notion-create-pages`, `parent`: `{"type": "data_source_id", "data_source_id": "af890d8c-9a71-4500-b2e8-89e3ac7449eb"}`, properties:
      - `Title`: `"{basename of PROJECT_PATH} · {YYYY-MM-DD HH:mm}"`
      - `Directory`: `PROJECT_PATH` (exact string, matches existing select option or creates a new one)
      - `Machine`: `MACHINE` (exact string, matches existing select option or creates a new one)
-     - `date:Timestamp:start`: current ISO timestamp, `date:Timestamp:is_datetime`: `1`
+     - `date:Timestamp:start`: `NOW`, `date:Timestamp:is_datetime`: `1`
      - `Tags`: JSON array string of the chosen tags, e.g. `["blog","rtk"]`
      - `Summary`:
        ```
