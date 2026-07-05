@@ -22,10 +22,10 @@ Write the session summary into today's row for this directory + machine in the N
 
 1. Check for today's row for this directory + machine using `mcp__claude_ai_Notion__notion-query-data-sources` (SQL mode):
    ```sql
-   SELECT "url", "Title", "Summary" FROM "collection://af890d8c-9a71-4500-b2e8-89e3ac7449eb"
-   WHERE "Directory" = ? AND "Machine" = ? AND substr("date:Timestamp:start",1,10) = ?
+   SELECT "url", "Title", "Summary", "date:Timestamp:start" FROM "collection://af890d8c-9a71-4500-b2e8-89e3ac7449eb"
+   WHERE "Directory" = ? AND "Machine" = ? ORDER BY "date:Timestamp:start" DESC LIMIT 1
    ```
-   params: `[PROJECT_PATH, MACHINE, <today's date, YYYY-MM-DD>]`. Note the `url` (page id) if a row exists — that's the row to update, not a new one.
+   params: `[PROJECT_PATH, MACHINE]`. `date:Timestamp:start` is stored in UTC — do NOT filter by date in the query itself (a `substr(...,1,10) = today` match breaks near local midnight, since the local date and the UTC date can differ). Instead, convert the returned timestamp to local time (run `date -d "<value>" +%Y-%m-%d` or equivalent) and compare that to today's local date (`date +%Y-%m-%d`). If it matches, that row's `url` is the one to update. If it doesn't match (or no row exists), a new row is needed.
 
 2. Review the conversation: what was built or changed, decisions made, anything useful for next time.
 
