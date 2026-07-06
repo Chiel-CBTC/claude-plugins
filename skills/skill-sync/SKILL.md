@@ -29,6 +29,7 @@ Doel van deze skill: na het maken/wijzigen van een skill, zorgen dat de juiste k
 - `REPO_PATH` (default): `~/git/claude-plugins` — kan per machine anders zijn of ontbreken, zie stap 0.
 - `REPO_URL`: `https://github.com/Chiel-CBTC/claude-plugins.git`
 - `LOCAL_SKILLS_PATH`: `~/.claude/skills`
+- `WIKI_OVERZICHT_URL`: `https://app.notion.com/p/3951495d13948187a7b2fbc73b724d3a` — "chiel-skills — Persoonlijke skills in de plugin repo", het overzicht van alle skills in deze repo.
 
 ## Steps
 
@@ -49,4 +50,6 @@ Doel van deze skill: na het maken/wijzigen van een skill, zorgen dat de juiste k
      - Kiest hij voor de repo: maak `REPO_PATH/skills/<naam>/` aan, kopieer alle bestanden van de lokale skill erin, laat `git status` zien, en vraag of hij wil dat je meteen de losse lokale kopie in `LOCAL_SKILLS_PATH/<naam>/` verwijdert (zelfde patroon als bij de eerdere opschoning: alleen verwijderen na duidelijke bevestiging, nooit automatisch).
      - Kiest hij voor lokaal: geen verdere actie nodig, wel kort bevestigen dat 'ie zo blijft staan (niet meegenomen naar andere machines).
 
-3. **Rond af** met een korte statusregel: wat is waar terechtgekomen, en wat Chiel eventueel nog moet doen (committen/pushen, of op een andere machine updaten).
+3. **Werk `WIKI_OVERZICHT_URL` bij** — bij elke skill die in de repo landt (nieuw of gewijzigd): update de tabelrij van deze skill in de wiki-pagina (naam, trigger, korte beschrijving), of voeg een nieuwe rij toe in de juiste categorie-tabel. Gebruik `notion-update-page` met `update_content` (gerichte search-and-replace), niet `replace_content`. Sla deze stap alleen over als Chiel alleen voor "lokaal houden" koos.
+
+4. **Rond af** met een korte statusregel: wat is waar terechtgekomen (incl. of de wiki is bijgewerkt), en wat Chiel eventueel nog moet doen (committen/pushen, of op een andere machine updaten).
