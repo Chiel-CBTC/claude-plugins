@@ -106,6 +106,14 @@ Zodat ik [doel]
 - Title en Project zijn verplicht; overige velden mogen leeg blijven als de gebruiker dat aangeeft
 - Tags worden gescheiden door puntkomma's in Azure DevOps
 
+## Taken (Task) aanmaken onder een PBI
+
+Bij het aanmaken van child Tasks via `wit_add_child_work_items`: de tool erft AreaPath/IterationPath **niet** van de parent — nieuwe taken krijgen de project-root-waarden (bv. `Zwitch` i.p.v. `Zwitch\Team Leerkracht`, en `Zwitch` i.p.v. de actuele sprint). Gevolg: de taak verschijnt niet op het sprintboard.
+
+Na het aanmaken altijd:
+1. Parent-PBI opvragen (`wit_get_work_item`) voor de juiste AreaPath + IterationPath
+2. Elke nieuwe taak corrigeren via `wit_update_work_items_batch` (`System.AreaPath` + `System.IterationPath` gelijk aan de parent)
+
 ## Verwante skills
 
 Voor het **wijzigen** van een bestaand PBI: zie `ado-update-pbi`. Voor een **overzicht/lijst** van PBI's: zie `ado-list-pbis`. Voor het **aanmaken van een bug**: zie `ado-create-bug`.
