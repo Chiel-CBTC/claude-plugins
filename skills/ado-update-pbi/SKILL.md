@@ -24,6 +24,7 @@ description: >
 - Voor een **topische** relatie tussen twee werkitems: `type: "related"`.
 - Voor een **afhankelijkheid** (het ene werkitem moet eerst af zijn voor het andere): `type: "predecessor"` / `"successor"`, met een `comment` die het waarom benoemt. Dit drukt de volgorde zelf al uit — sterker dan een losse "Related"-link plus een zin in de tekst.
 - Na een parent-link-wijziging: haal het werkitem opnieuw op en verifieer de AreaPath. ADO kan die automatisch overschrijven zodra je aan een parent in een ander team linkt.
+- `wit_add_child_work_items` neemt AreaPath en IterationPath van de parent NIET automatisch over — de child valt terug op de root van het team project. Haal na aanmaak de parent's AreaPath/IterationPath op en zet die expliciet op de child via `wit_update_work_item`.
 
 ## Veelgemaakte fout
 
