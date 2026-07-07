@@ -30,7 +30,7 @@ description: >
 ## Vaste/standaardwaarden
 
 - `Priority` = `Medium` — altijd automatisch invullen, tenzij Chiel expliciet `High` of `Low` aangeeft.
-- `Status` = `Overall Backlog` — altijd automatisch invullen, tenzij Chiel aangeeft dat het al opgepakt is (`Sprint Backlog`, `In progress`, `Test`) — gebruik dan die waarde zonder te vragen.
+- `Status` = `Sprint Backlog` — altijd automatisch invullen, tenzij Chiel expliciet iets anders aangeeft (bv. `Overall Backlog`) of aangeeft dat het al verder opgepakt is (`In progress`, `Test`) — gebruik dan die waarde zonder te vragen.
 - `Issue Type` = `Task` — tenzij Chiel iets anders aangeeft, of de aard evident anders is uit de omschrijving (bv. "site geeft een foutmelding" = `Bug`). Neem dit dan aan en meld de aanname kort in plaats van te vragen.
 - `icon` = `https://www.notion.so/icons/checkmark_red.svg` — altijd meegeven bij het aanmaken.
 - `Cluster` — altijd kort navragen bij Chiel, ook bij een duidelijke match. Doe zelf wel de beste suggestie op basis van bestaande opties in het veld, zodat Chiel alleen hoeft te bevestigen of te corrigeren.
@@ -67,7 +67,7 @@ Gebruik `notion-create-pages` met:
       "Issue": "<korte, actiegerichte titel>",
       "Issue Type": "<type>",
       "Project": "<afgeleid project>",
-      "Status": "Overall Backlog",
+      "Status": "Sprint Backlog",
       "Priority": "Medium",
       "Cluster": "<beste match>"
     },
