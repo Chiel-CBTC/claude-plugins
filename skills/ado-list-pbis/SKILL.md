@@ -10,9 +10,12 @@ description: >
 
 # Azure DevOps werkitems opvragen
 
+## Project
+
+Standaard `Zwitch` — geef dit altijd expliciet mee als `project`-parameter bij de tool-call, zodat de tool niet zelf om een projectkeuze vraagt. Nooit navragen, tenzij de gebruiker expliciet een ander project noemt.
+
 ## Variabele filters (navragen indien niet expliciet gegeven)
 
-- **Project** — meestal Zwitch, tenzij anders aangegeven
 - **Area Path** — bv. `Zwitch\Team Leerkracht`, `Zwitch\Team Leerling`, `Zwitch\Team Distributie en Toegang`
 - **State** — bv. `New`, `Ready for refinement`, `In Progress`
 - **WorkItemType** — default `Product Backlog Item`, tenzij anders gevraagd

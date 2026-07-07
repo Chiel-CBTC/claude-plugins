@@ -15,9 +15,12 @@ description: >
 
 | Veld      | Waarde               |
 |-----------|----------------------|
+| Project   | Zwitch               |
 | Iteration | Zwitch               |
 | State     | New                  |
 | Type      | Product Backlog Item |
+
+Project is standaard `Zwitch` — geef dit altijd expliciet mee als `project`-parameter bij de tool-call, zodat de tool niet zelf om een projectkeuze vraagt. Nooit navragen, tenzij de gebruiker expliciet een ander project noemt.
 
 ## Area Path
 
@@ -31,18 +34,17 @@ Vraag altijd welk Area Path van toepassing is. Keuzemogelijkheden:
 
 Stel deze vragen **in één bericht**, voordat je iets aanmaakt:
 
-1. **Project** — In welk Azure DevOps project?
-2. **Area Path** — Welk team? (zie keuzes hierboven)
-3. **Parent Feature** — Onder welke Feature valt dit PBI? (naam of ID)
-4. **Title** — Wat is de titel van de PBI?
-5. **Gaat dit over test automation?** — Ja of nee (bepaalt de taglogica, zie hieronder)
-6. **User story** — Vul in:
+1. **Area Path** — Welk team? (zie keuzes hierboven)
+2. **Parent Feature** — Onder welke Feature valt dit PBI? (naam of ID)
+3. **Title** — Wat is de titel van de PBI?
+4. **Gaat dit over test automation?** — Ja of nee (bepaalt de taglogica, zie hieronder)
+5. **User story** — Vul in:
    - *Als* [rol]
    - *Wil ik* [functionaliteit]
    - *Zodat ik* [doel]
-7. **Toelichting** — Aanvullende context of technische toelichting? (optioneel)
-8. **Acceptatiecriteria** — Wat zijn de acceptatiecriteria? (opsomming)
-9. **Gekoppelde PBI's** — Moet dit PBI aan een of meerdere andere werkitems gekoppeld worden als "Related"? Zo ja: welke (ID's of titels)?
+6. **Toelichting** — Aanvullende context of technische toelichting? (optioneel)
+7. **Acceptatiecriteria** — Wat zijn de acceptatiecriteria? (opsomming)
+8. **Gekoppelde PBI's** — Moet dit PBI aan een of meerdere andere werkitems gekoppeld worden als "Related"? Zo ja: welke (ID's of titels)?
 
 ## Taglogica
 
@@ -103,7 +105,7 @@ Zodat ik [doel]
 ## Opmerkingen
 
 - Maak nooit een PBI aan zonder eerst de variabele velden te hebben opgehaald
-- Title en Project zijn verplicht; overige velden mogen leeg blijven als de gebruiker dat aangeeft
+- Title is verplicht; overige velden mogen leeg blijven als de gebruiker dat aangeeft
 - Tags worden gescheiden door puntkomma's in Azure DevOps
 
 ## Taken (Task) aanmaken onder een PBI

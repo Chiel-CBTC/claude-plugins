@@ -11,6 +11,10 @@ description: >
 
 # Azure DevOps werkitem wijzigen
 
+## Project
+
+Standaard `Zwitch` — geef dit altijd expliciet mee als `project`-parameter bij elke ADO-tool-call (`wit_get_work_item`, `wit_update_work_item`, etc.), zodat de tool niet zelf om een projectkeuze vraagt. Nooit navragen, tenzij de gebruiker expliciet een ander project noemt.
+
 ## Werkwijze — in deze volgorde, nooit overslaan
 
 1. **Haal het werkitem altijd eerst opnieuw op** (`wit_get_work_item`, `expand: relations`) vóórdat je een veld overschrijft. Vertrouw nooit op een eerder in het gesprek onthouden versie van de tekst — die kan intussen handmatig gewijzigd zijn in ADO.

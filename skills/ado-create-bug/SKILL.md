@@ -15,16 +15,18 @@ description: >
 
 | Veld      | Waarde                          |
 |-----------|----------------------------------|
+| Project   | Zwitch                          |
 | Iteration | Zwitch (of huidige sprint indien bekend) |
 | State     | New                              |
 | Type      | Bug                               |
+
+Project is standaard `Zwitch` — geef dit altijd expliciet mee als `project`-parameter bij de tool-call, zodat de tool niet zelf om een projectkeuze vraagt. Nooit navragen, tenzij de gebruiker expliciet een ander project noemt.
 
 ## Werkwijze — in deze volgorde, nooit overslaan
 
 1. **Zoek eerst naar bestaande gerelateerde werkitems**, vóórdat je iets aanmaakt. Bouw een WIQL-query (`wit_query_by_wiql`) met `CONTAINS` op `System.Title` en `System.Description` voor de kernbegrippen uit het probleem (testnaam, foutmelding, betrokken component/scherm). Haal titels op via `wit_get_work_items_batch_by_ids` en filter handmatig op relevantie — brede trefwoorden zoals "cache" of een generieke foutcode leveren veel ruis op, dus lees de titels door voor je concludeert dat er niks bestaat.
    - Vind je een sterke match (bv. een eerder item met exact dezelfde testnaam of foutmelding): meld dit expliciet aan de gebruiker vóórdat je verdergaat, inclusief link. Een eerder gesloten, vergelijkbaar item is een signaal dat het probleem structureel is in plaats van incidenteel — vermeld dat.
 2. **Vraag/verzamel de vereiste velden** (één voor één, niet gebundeld — wacht op antwoord voordat je de volgende stelt — tenzij al impliciet duidelijk uit het voorafgaande gesprek):
-   - Project (meestal Zwitch)
    - Area Path
    - Titel — houd 'm kort. Betreft de bug een test-suite: begin de titel met de test-soort als prefix (Unit Testen; FE Integration Testen; BE Integration Testen; Smoke Testen; E2E Testen; Ketentesten), gevolgd door " - " en een korte beschrijving van het probleem. Details (reproductiestappen, timing, condities) horen in ReproSteps, niet in de titel.
    - Reproductiestappen en bewijs (wat is precies waargenomen, hoe te reproduceren — repro-commando indien van toepassing)
@@ -76,7 +78,7 @@ Vermoedelijke oorzaak: [hypothese, indien bekend, anders "onbekend"]
 ## Opmerkingen
 
 - Maak nooit een bug aan zonder eerst te zoeken naar bestaande gerelateerde items — voorkomt duplicaten én legt bloot of iets structureel is in plaats van een eenmalig incident.
-- Title en Project zijn verplicht; overige velden mogen leeg/onbekend zijn als de gebruiker dat aangeeft.
+- Title is verplicht; overige velden mogen leeg/onbekend zijn als de gebruiker dat aangeeft.
 - Check `multilineFieldsFormat` bij gerelateerde items die je terugvindt (`Html` of `Markdown`) — puur ter oriëntatie, niet relevant voor het nieuwe item zelf tenzij je een bestaand item bijwerkt (zie `ado-update-pbi`).
 
 ## Verwante skills
