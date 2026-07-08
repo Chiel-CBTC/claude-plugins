@@ -12,6 +12,10 @@ description: >
 
 Write the session summary into today's row for this directory + machine in the Notion "Sessions" database — the same row that mid-session updates (per `CLAUDE.md`) should already be writing to. One row per directory per machine per day, never more.
 
+## Execution
+
+Always do the actual work (steps 1-6 below) in a subagent — call the `Agent` tool with `subagent_type: "fork"` (it inherits the full conversation, needed for step 2). Never run the Notion query/create/update calls on the main thread. This keeps the Notion tool-call noise out of the main conversation's context. After the fork reports back, relay its final confirmation (step 6) to the user yourself.
+
 ## Constants
 
 - Data source: `collection://af890d8c-9a71-4500-b2e8-89e3ac7449eb`
