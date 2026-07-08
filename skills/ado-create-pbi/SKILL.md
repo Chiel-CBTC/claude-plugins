@@ -70,6 +70,8 @@ Stel aanvullend drie gerichte vragen:
    - `Chain Test`
 3. **Evaluatie** — Heeft dit betrekking op de evaluatie-functionaliteit binnen de teacher app? (ja/nee)
 
+**Titelconventie**: begin de titel altijd met de gekozen "Soort test" als prefix, gevolgd door " - " (streepje, gespatieerd), bv. "E2E Test - Eigen testdata per data-muterende test i.p.v. gedeelde groepen". Consistent met de titelconventie in `ado-create-bug`.
+
 Stel deze vragen in hetzelfde bericht als de overige vragen.
 
 De tags worden dan automatisch samengesteld:
@@ -107,6 +109,7 @@ Zodat ik [doel]
 - Maak nooit een PBI aan zonder eerst de variabele velden te hebben opgehaald
 - Title is verplicht; overige velden mogen leeg blijven als de gebruiker dat aangeeft
 - Tags worden gescheiden door puntkomma's in Azure DevOps
+- Noem je een ander (bestaand) werkitem ergens in tekst (Toelichting, comment): voeg altijd de volledige URL toe (`https://dev.azure.com/zwijsenonline/538f95b0-4b81-42f5-abe0-b6f470d61edc/_workitems/edit/{id}`) én leg de relatie ook echt vast via `wit_work_items_link` — een vermelding in tekst alleen is onvoldoende.
 
 ## Taken (Task) aanmaken onder een PBI
 

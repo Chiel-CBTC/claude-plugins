@@ -30,6 +30,10 @@ Standaard `Zwitch` — geef dit altijd expliciet mee als `project`-parameter bij
 - Na een parent-link-wijziging: haal het werkitem opnieuw op en verifieer de AreaPath. ADO kan die automatisch overschrijven zodra je aan een parent in een ander team linkt.
 - `wit_add_child_work_items` neemt AreaPath en IterationPath van de parent NIET automatisch over — de child valt terug op de root van het team project. Haal na aanmaak de parent's AreaPath/IterationPath op en zet die expliciet op de child via `wit_update_work_item`.
 
+## Werkitems noemen in tekst
+
+Noem je een ander werkitem (PBI/bug/task) in een comment, description, of ander veld — voeg dan altijd de volledige URL toe: `https://dev.azure.com/zwijsenonline/538f95b0-4b81-42f5-abe0-b6f470d61edc/_workitems/edit/{id}`. En leg de relatie ook daadwerkelijk vast via `wit_work_items_link` (meestal `"related"`) — een vermelding in tekst is geen vervanging voor een echte link.
+
 ## Veelgemaakte fout
 
 Een update-call bouwen op de eigen onthouden tekst uit het gesprek, zonder opnieuw op te halen. Als de gebruiker tussentijds handmatig iets in ADO heeft aangepast, overschrijft de volgende update dat stilletjes. Altijd `wit_get_work_item` vóór `wit_update_work_item`.

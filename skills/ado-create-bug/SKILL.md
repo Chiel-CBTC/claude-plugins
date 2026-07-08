@@ -80,6 +80,7 @@ Vermoedelijke oorzaak: [hypothese, indien bekend, anders "onbekend"]
 - Maak nooit een bug aan zonder eerst te zoeken naar bestaande gerelateerde items — voorkomt duplicaten én legt bloot of iets structureel is in plaats van een eenmalig incident.
 - Title is verplicht; overige velden mogen leeg/onbekend zijn als de gebruiker dat aangeeft.
 - Check `multilineFieldsFormat` bij gerelateerde items die je terugvindt (`Html` of `Markdown`) — puur ter oriëntatie, niet relevant voor het nieuwe item zelf tenzij je een bestaand item bijwerkt (zie `ado-update-pbi`).
+- Noem je een ander (bestaand) werkitem ergens in tekst, bv. in "Extra info" van ReproSteps: voeg altijd de volledige URL toe (zie stap 7 voor het format) én leg de relatie ook echt vast via `wit_work_items_link` — een vermelding in tekst alleen is onvoldoende.
 
 ## Verwante skills
 
