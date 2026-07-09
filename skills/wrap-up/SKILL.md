@@ -14,7 +14,13 @@ Write the session summary into today's row for this directory + machine in the N
 
 ## Execution
 
-Always do the actual work (steps 1-6 below) in a subagent — call the `Agent` tool with `subagent_type: "fork"` (it inherits the full conversation, needed for step 2). Never run the Notion query/create/update calls on the main thread. This keeps the Notion tool-call noise out of the main conversation's context. After the fork reports back, relay its final confirmation (step 6) to the user yourself.
+You (the calling agent) already have the full conversation in context — reviewing it costs nothing extra for you. Do that review yourself (step 2 below) and compose a concise **Session summary** block from it *before* dispatching anything.
+
+Then do the actual Notion work (steps 1, 3-6) in a **fresh** subagent — call the `Agent` tool with a normal `subagent_type` (e.g. `general-purpose`), **not** `"fork"`. A fork inherits the entire conversation and re-pays its full token cost on every one of its own turns; on a long session that's the single biggest cost driver of this skill and buys nothing, since you're handing it a curated summary anyway. Give the fresh agent nothing but: the constants below, the Session summary you wrote, and steps 1/3-6. It never needs to "review the conversation" itself.
+
+Never run the Notion query/create/update calls on the main thread — that's still true, it keeps Notion tool-call noise out of the main conversation's context. The fix is *which* subagent type carries that work, not whether it's a subagent.
+
+After the subagent reports back, relay its final confirmation (step 6) to the user yourself.
 
 ## Constants
 
@@ -32,14 +38,14 @@ Always do the actual work (steps 1-6 below) in a subagent — call the `Agent` t
    ```
    params: `[PROJECT_PATH, MACHINE]`. `date:Timestamp:start` is stored in UTC — do NOT filter by date in the query itself (a `substr(...,1,10) = today` match breaks near local midnight, since the local date and the UTC date can differ). Instead, convert the returned timestamp to local time (run `date -d "<value>" +%Y-%m-%d` or equivalent) and compare that to today's local date (`date +%Y-%m-%d`). If it matches, that row's `url` is the one to update. If it doesn't match (or no row exists), a new row is needed.
 
-2. Review the conversation: what was built or changed, decisions made, anything useful for next time.
+2. Review the conversation: what was built or changed, decisions made, anything useful for next time. **Done by the calling agent before dispatch** (see Execution) — write this as a short "Session summary" the fresh subagent receives verbatim, so it never has to re-derive it. On a follow-up wrap-up later in the same session, only summarize what happened *since* the last wrap-up — don't re-summarize what's already on the row.
 
-3. Determine what is NOT yet captured (compare against the existing `Summary` from step 1, if any). Only write what is new — skip anything already noted.
+3. Determine what is NOT yet captured (compare the Session summary against the existing `Summary` from step 1, if any). Only write what is new — skip anything already noted.
 
 4. If there is new information to add, determine tags:
    - Fetch the current Tags options via `mcp__claude_ai_Notion__notion-fetch` on `collection://af890d8c-9a71-4500-b2e8-89e3ac7449eb` (schema lists existing multi-select options).
    - Pick 1-3 tags that fit the session content, reusing existing options where possible (merge with any tags already on the row, don't drop them).
-   - If nothing fits, propose one new tag name and ask the user for a quick confirmation before writing.
+   - If nothing fits well, pick the closest existing option rather than inventing one — a fire-and-forget subagent can't pause to ask the user mid-run. Note in your final report (back to the calling agent) that a new tag might be worth adding; the calling agent can raise that with the user afterward.
 
 5. Write the row:
    - **Row already exists (from step 1)** — update it via `mcp__claude_ai_Notion__notion-update-page` (`update_properties`, `page_id` = the `url`/id from step 1): merge the new material into `Summary` (append or rewrite, keep it coherent), bump `Title` and `date:Timestamp:start` to `NOW`, merge `Tags`.
