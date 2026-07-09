@@ -92,11 +92,13 @@ De tags worden dan automatisch samengesteld:
 
 ## Description veldopbouw
 
-```
-Als [rol]
-Wil ik [functionaliteit]
-Zodat ik [doel]
+De Description staat net als Acceptatiecriteria in een HTML-veld, ook al lijkt de tool-parameter markdown toe te staan. Gebruik daarom echte HTML-opbouw, geen platte `\n`:
 
+```html
+Als [rol]<br>
+Wil ik [functionaliteit]<br>
+Zodat ik [doel]<br>
+<br>
 [Toelichting indien opgegeven]
 ```
 
@@ -105,6 +107,18 @@ Acceptatiecriteria horen **niet** in de Description, maar in het aparte PBI-veld
 ```html
 <ul><li>[criterium 1]</li><li>[criterium 2]</li></ul>
 ```
+
+### URLs in de Description
+
+Een kale URL in platte tekst wordt **niet** automatisch klikbaar — wrap 'm altijd in een anchor-tag:
+
+```html
+<a href="https://...">https://...</a>
+```
+
+### Let op met het `<`-teken
+
+In vrije tekst (bv. "<1 uur") interpreteert het HTML-veld `<` als start van een tag. Alles na een ongesloten `<...` kan zonder foutmelding stilzwijgend van de rest van het veld verdwijnen (met name via `wit_update_work_item`, dat geen format-parameter kent). Vermijd letterlijke `<`/`>` in tekst — schrijf "minder dan 1 uur" i.p.v. "<1 uur", of escape als `&lt;`/`&gt;` als het teken echt nodig is. Controleer na een update met `wit_get_work_item` of de volledige tekst er nog staat.
 
 ## Opmerkingen
 
