@@ -83,7 +83,7 @@ De tags worden dan automatisch samengesteld:
 1. Stel alle vragen in één bericht aan de gebruiker
 2. Wacht op de antwoorden
 3. Toon een samenvatting van het PBI ter bevestiging
-4. Maak het PBI aan via de Azure DevOps MCP tool (`create_work_item`) met alle velden. Stuur de Parent Feature **niet** mee als veld — dat zet geen echte hiërarchie-link (zie stap 5)
+4. Maak het PBI aan via de Azure DevOps MCP tool (`create_work_item`) met alle velden. Stuur de Parent Feature **niet** mee als veld — dat zet geen echte hiërarchie-link (zie stap 5). Acceptatiecriteria gaan in het aparte veld `Microsoft.VSTS.Common.AcceptanceCriteria` (HTML-formaat), niet in de Description (zie "Description veldopbouw" hieronder)
 5. Koppel het nieuwe PBI via `wit_work_items_link`:
    - Altijd: als `"parent"` aan de opgegeven Parent Feature — het `System.Parent`-veld bij `create_work_item` maakt geen echte relatie aan
    - Indien opgegeven: als `"related"` aan de gekoppelde PBI's
@@ -98,10 +98,12 @@ Wil ik [functionaliteit]
 Zodat ik [doel]
 
 [Toelichting indien opgegeven]
+```
 
-**Acceptatiecriteria:**
-- [criterium 1]
-- [criterium 2]
+Acceptatiecriteria horen **niet** in de Description, maar in het aparte PBI-veld `Microsoft.VSTS.Common.AcceptanceCriteria`. Dit veld is HTML-formaat — platte `-`/`*` bullets met newlines worden genegeerd (alles komt achter elkaar te staan). Gebruik echte HTML-list-markup:
+
+```html
+<ul><li>[criterium 1]</li><li>[criterium 2]</li></ul>
 ```
 
 ## Opmerkingen
