@@ -24,6 +24,8 @@ When calling `mcp__claude_ai_Notion__notion-update-page`, use the row's `id` fie
 
 Never run the Notion query/create/update calls on the main thread — that's still true, it keeps Notion tool-call noise out of the main conversation's context. The fix is *which* subagent type carries that work, not whether it's a subagent.
 
+**Fast path for a repeat wrap-up in the same session.** If an earlier wrap-up dispatch already reported back this session, you (the calling agent) already know that row's `id` and its current `Tags` from that report — carry them forward. Skip step 1's dedupe query and step 4's tag fetch entirely; hand the subagent the known `id` and the known tags directly and tell it to go straight to step 5 (write) and step 6 (confirm). This cuts a repeat wrap-up to essentially one Notion call (the update) plus the one-time tool-schema load, since the dedupe/tag lookups were only ever needed to discover facts that don't change between wrap-ups in the same session. Only fall back to the full step 1/4 lookup on the *first* wrap-up of a session, or if you're not sure the remembered `id`/tags are still accurate (e.g. resuming after a long gap).
+
 After the subagent reports back, relay its final confirmation (step 6) to the user yourself.
 
 ## Constants
@@ -34,6 +36,8 @@ After the subagent reports back, relay its final confirmation (step 6) to the us
 - `NOW` — the current local timestamp with UTC offset. ALWAYS get this by running `date -Iseconds` — never guess or infer it from context/training. A guessed timestamp tends to land hours off (e.g. UTC instead of local), which is exactly the kind of bug that's easy to miss because the row still looks plausible.
 
 ## Steps
+
+*(Skip straight to step 5 if the Fast path above applies — you already have the row id and tags.)*
 
 1. Check for today's row for this directory + machine using `mcp__claude_ai_Notion__notion-query-data-sources` (SQL mode):
    ```sql
