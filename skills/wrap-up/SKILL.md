@@ -18,6 +18,10 @@ You (the calling agent) already have the full conversation in context — review
 
 Then do the actual Notion work (steps 1, 3-6) in a **fresh** subagent — call the `Agent` tool with a normal `subagent_type` (e.g. `general-purpose`), **not** `"fork"`. A fork inherits the entire conversation and re-pays its full token cost on every one of its own turns; on a long session that's the single biggest cost driver of this skill and buys nothing, since you're handing it a curated summary anyway. Give the fresh agent nothing but: the constants below, the Session summary you wrote, and steps 1/3-6. It never needs to "review the conversation" itself.
 
+Pass `model: "haiku"` explicitly on that dispatch. This is mechanical CRUD against a fully-specified schema (query, compare two strings, write) with no ambiguous judgment calls — a fast/cheap model handles it fine and responds faster per tool-call round-trip than a heavier default, which matters more than token count for the wall-clock time the user actually waits on (~7 sequential Notion round-trips dominate the latency, not context size). Leaving `model` unset silently inherits the session's default, usually the most expensive and not the fastest.
+
+When calling `mcp__claude_ai_Notion__notion-update-page`, use the row's `id` field from the step-1 query result verbatim as `page_id` (not the `url`) — passing a malformed id costs a full extra round-trip on a failed call before retrying correctly.
+
 Never run the Notion query/create/update calls on the main thread — that's still true, it keeps Notion tool-call noise out of the main conversation's context. The fix is *which* subagent type carries that work, not whether it's a subagent.
 
 After the subagent reports back, relay its final confirmation (step 6) to the user yourself.
