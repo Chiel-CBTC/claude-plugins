@@ -59,7 +59,7 @@ Zoek eerst uit welke tags al gangbaar zijn in dit Area Path, i.p.v. blind te vra
 Doel: aansluiten bij bestaande conventies van het team i.p.v. een taxonomie verzinnen voor disciplines waar deze skill geen zicht op heeft.
 
 ### Test automation PBI
-Stel aanvullend drie gerichte vragen:
+Stel aanvullend vier gerichte vragen:
 
 1. **Prioriteit** — `high`, `medium` of `low`?
 2. **Soort test** — Kies één:
@@ -69,8 +69,11 @@ Stel aanvullend drie gerichte vragen:
    - `Smoke Test`
    - `Chain Test`
 3. **Evaluatie** — Heeft dit betrekking op de evaluatie-functionaliteit binnen de teacher app? (ja/nee)
+4. **Spike** — Is dit een spike (onderzoek/uitzoekwerk) in plaats van direct uitvoerbaar testwerk? (ja/nee)
 
 **Titelconventie**: begin de titel altijd met de gekozen "Soort test" als prefix, gevolgd door " - " (streepje, gespatieerd), bv. "E2E Test - Eigen testdata per data-muterende test i.p.v. gedeelde groepen". Consistent met de titelconventie in `ado-create-bug`.
+
+Is het ook een spike (vraag 4 = ja): zet daarvóór nog `SPIKE: ` neer, bv. "SPIKE: E2E Test - Onderzoek testdata-aanpak voor gedeelde groepen".
 
 Stel deze vragen in hetzelfde bericht als de overige vragen.
 
