@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "chiel-skills",
-      "description": "Persoonlijke skills: Azure DevOps workflows, Notion integraties, en dev workflow helpers.",
+      "description": "Persoonlijke skills: Notion integraties en dev workflow helpers.",
       "source": "./",
       "category": "productivity"
     }
